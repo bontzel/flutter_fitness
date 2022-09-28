@@ -1,0 +1,21 @@
+name: local_storage_workouts_api
+description: Local Storage Workouts API
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.17.0 <3.0.5"
+
+dependencies:
+  meta: ^1.7.0
+  rxdart: ^0.27.5
+  shared_preferences: ^2.0.15
+  workouts_api:
+    path: ../workouts_api
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  very_good_analysis: ^3.0.1

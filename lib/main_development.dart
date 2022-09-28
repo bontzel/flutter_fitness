@@ -1,13 +1,23 @@
-// Copyright (c) 2022, Very Good Ventures
-// https://verygood.ventures
-//
-// Use of this source code is governed by an MIT-style
-// license that can be found in the LICENSE file or at
-// https://opensource.org/licenses/MIT.
-
+import 'package:authentication_repository/authentication_repository.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_fitness/app/app.dart';
 import 'package:flutter_fitness/bootstrap.dart';
+import 'package:local_storage_workouts_api/local_storage_workouts_api.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:user_repository/user_repository.dart';
+import 'package:workouts_repository/workouts_repository.dart';
 
-void main() {
-  bootstrap(() => const App());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final workoutsApi = LocalStorageWorkoutsApi(
+      plugin: await SharedPreferences.getInstance(),
+  );
+
+  await bootstrap(() => App(
+        authenticationRepository: AuthenticationRepository(),
+        userRepository: UserRepository(),
+        workoutsRepository: WorkoutsRepository(workoutsApi: workoutsApi),
+    ),
+  );
 }

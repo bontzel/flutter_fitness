@@ -4,17 +4,31 @@ version: 1.0.0+1
 publish_to: none
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
-  flutter: 3.0.4
+  sdk: ">=2.17.0 <3.0.5"
+  flutter: 3.0.5
 
 dependencies:
-  bloc: ^8.0.3
+  bloc: ^8.1.0
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
   flutter_localizations:
     sdk: flutter
+  flutter_slidable: ^2.0.0
+  formz: ^0.4.1
   intl: ^0.17.0
+  equatable: ^2.0.3
+  hexcolor: ^2.0.7
+  authentication_repository:
+    path: packages/authentication_repository
+  user_repository:
+    path: packages/user_repository
+  workouts_repository:
+    path: packages/workouts_repository
+  workouts_api:
+    path: packages/workouts_api
+  local_storage_workouts_api:
+    path: packages/local_storage_workouts_api
 
 dev_dependencies:
   bloc_test: ^9.0.3
