@@ -4,8 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_fitness/login/login.dart';
 
 class LoginPage extends StatelessWidget {
+  const LoginPage({super.key});
+
+  // ignore: strict_raw_type
   static Route route() {
-    return MaterialPageRoute<void>(builder: (_) => LoginPage());
+    return MaterialPageRoute<void>(builder: (_) => const LoginPage());
   }
 
   @override
@@ -18,7 +21,7 @@ class LoginPage extends StatelessWidget {
           create: (context) {
             return LoginBloc(
               authenticationRepository:
-              RepositoryProvider.of<AuthenticationRepository>(context),
+                  RepositoryProvider.of<AuthenticationRepository>(context),
             );
           },
           child: const LoginForm(),

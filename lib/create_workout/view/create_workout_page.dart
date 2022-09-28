@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_fitness/create_workout/create_workout.dart';
-import 'package:flutter_fitness/create_workout/view/create_workout_form.dart';
 import 'package:workouts_repository/workouts_repository.dart';
 
 class CreateWorkoutPage extends StatelessWidget {
   const CreateWorkoutPage({super.key});
 
+  // ignore: strict_raw_type
   static Route route() {
     return MaterialPageRoute<void>(builder: (_) => const CreateWorkoutPage());
   }
@@ -21,7 +21,7 @@ class CreateWorkoutPage extends StatelessWidget {
           create: (context) {
             return EditWorkoutBloc(
               workoutsRepository:
-              RepositoryProvider.of<WorkoutsRepository>(context),
+                  RepositoryProvider.of<WorkoutsRepository>(context),
             );
           },
           child: const CreateWorkoutForm(),

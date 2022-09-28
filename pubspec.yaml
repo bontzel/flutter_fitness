@@ -8,30 +8,30 @@ environment:
   flutter: 3.0.5
 
 dependencies:
+  authentication_repository:
+    path: packages/authentication_repository
   bloc: ^8.1.0
+  equatable: ^2.0.3
   flutter:
     sdk: flutter
-  flutter_bloc: ^8.0.1
+  flutter_bloc: ^8.1.1
   flutter_localizations:
     sdk: flutter
   flutter_slidable: ^2.0.0
   formz: ^0.4.1
-  intl: ^0.17.0
-  equatable: ^2.0.3
   hexcolor: ^2.0.7
-  authentication_repository:
-    path: packages/authentication_repository
-  user_repository:
-    path: packages/user_repository
-  workouts_repository:
-    path: packages/workouts_repository
-  workouts_api:
-    path: packages/workouts_api
+  intl: ^0.17.0
   local_storage_workouts_api:
     path: packages/local_storage_workouts_api
+  user_repository:
+    path: packages/user_repository
+  workouts_api:
+    path: packages/workouts_api
+  workouts_repository:
+    path: packages/workouts_repository
 
 dev_dependencies:
-  bloc_test: ^9.0.3
+  bloc_test: ^9.1.0
   flutter_test:
     sdk: flutter
   mocktail: ^0.3.0

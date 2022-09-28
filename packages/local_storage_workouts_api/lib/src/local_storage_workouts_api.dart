@@ -35,12 +35,14 @@ class LocalStorageWorkoutsApi extends WorkoutsApi {
   void _init() {
     final workoutsJson = _getValue(kTodosCollectionKey);
     if (workoutsJson != null) {
-      final workouts = List<Map>.from(json.decode(workoutsJson) as List)
-          .map((jsonMap) => Workout.fromJson(Map<String, dynamic>
-            .from(jsonMap),
-        ),
-      )
-          .toList();
+      final workouts =
+          List<Map<String, dynamic>>.from(json.decode(workoutsJson) as List)
+              .map(
+                (jsonMap) => Workout.fromJson(
+                  Map<String, dynamic>.from(jsonMap),
+                ),
+              )
+              .toList();
       _todoStreamController.add(workouts);
     } else {
       _todoStreamController.add(const []);
@@ -48,17 +50,17 @@ class LocalStorageWorkoutsApi extends WorkoutsApi {
   }
 
   @override
-  Stream<List<Workout>> getWorkouts() => _todoStreamController
-                                              .asBroadcastStream();
+  Stream<List<Workout>> getWorkouts() =>
+      _todoStreamController.asBroadcastStream();
 
   @override
-  Future<void> createWorkout(Workout todo) {
+  Future<void> createWorkout(Workout workout) {
     final workouts = [..._todoStreamController.value];
-    final workoutIndex = workouts.indexWhere((t) => t.id == todo.id);
+    final workoutIndex = workouts.indexWhere((t) => t.id == workout.id);
     if (workoutIndex >= 0) {
-      workouts[workoutIndex] = todo;
+      workouts[workoutIndex] = workout;
     } else {
-      workouts.add(todo);
+      workouts.add(workout);
     }
 
     _todoStreamController.add(workouts);

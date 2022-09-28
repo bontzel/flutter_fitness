@@ -7,6 +7,7 @@ import 'package:flutter_fitness/workouts/workouts_bloc/workouts_bloc.dart';
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+  // ignore: strict_raw_type
   static Route route() {
     return MaterialPageRoute<void>(builder: (_) => const HomePage());
   }
@@ -35,7 +36,7 @@ class _HomePageState extends State<HomePage> {
         listeners: [
           BlocListener<WorkoutsBloc, WorkoutsState>(
             listenWhen: (previous, current) =>
-            previous.lastDeletedWorkout != current.lastDeletedWorkout &&
+                previous.lastDeletedWorkout != current.lastDeletedWorkout &&
                 current.lastDeletedWorkout != null,
             listener: (context, state) {
               final deletedWorkout = state.lastDeletedWorkout!;
@@ -69,20 +70,22 @@ class _HomePageState extends State<HomePage> {
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
         items: const [
-              BottomNavigationBarItem(icon: Icon(
-                  Icons.settings,
-              ),
-                label: 'User Panel',
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.settings,
             ),
-              BottomNavigationBarItem(icon: Icon(
-                Icons.list,
-              ),
-                label: 'Workouts',
+            label: 'User Panel',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.list,
+            ),
+            label: 'Workouts',
           ),
         ],
       ),
-      floatingActionButton: _selectedIndex == 1
-          ? const AddWorkoutButton() : null,
+      floatingActionButton:
+          _selectedIndex == 1 ? const AddWorkoutButton() : null,
     );
   }
 
@@ -91,14 +94,12 @@ class _HomePageState extends State<HomePage> {
       _selectedIndex = index;
     });
   }
+
   static Widget workouts() {
     return const WorkoutsListPage();
   }
+
   static Widget userProfile() {
     return const UserProfile();
   }
 }
-
-
-
-

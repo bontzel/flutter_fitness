@@ -1,5 +1,6 @@
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_fitness/app/app.dart';
 import 'package:flutter_fitness/bootstrap.dart';
 import 'package:local_storage_workouts_api/local_storage_workouts_api.dart';
@@ -14,10 +15,12 @@ Future<void> main() async {
     plugin: await SharedPreferences.getInstance(),
   );
 
-  await bootstrap(() => App(
-    authenticationRepository: AuthenticationRepository(),
-    userRepository: UserRepository(),
-    workoutsRepository: WorkoutsRepository(workoutsApi: workoutsApi),
-  ),
+  Bloc.observer = AppBlocObserver();
+  runApp(
+    App(
+      authenticationRepository: AuthenticationRepository(),
+      userRepository: UserRepository(),
+      workoutsRepository: WorkoutsRepository(workoutsApi: workoutsApi),
+    ),
   );
 }

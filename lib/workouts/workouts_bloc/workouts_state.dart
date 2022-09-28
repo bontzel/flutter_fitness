@@ -1,6 +1,6 @@
 part of 'workouts_bloc.dart';
 
-enum WorkoutsStatus { initial, loading, success, failure}
+enum WorkoutsStatus { initial, loading, success, failure }
 
 class WorkoutsState extends Equatable {
   const WorkoutsState({
@@ -21,9 +21,9 @@ class WorkoutsState extends Equatable {
     return WorkoutsState(
       status: status != null ? status() : this.status,
       workouts: workouts != null ? workouts() : this.workouts,
-      lastDeletedWorkout:
-        lastDeletedWorkout != null ?
-          lastDeletedWorkout() : this.lastDeletedWorkout,
+      lastDeletedWorkout: lastDeletedWorkout != null
+          ? lastDeletedWorkout()
+          : this.lastDeletedWorkout,
     );
   }
 
@@ -35,4 +35,3 @@ class WorkoutsState extends Equatable {
   @override
   List<Object> get props => [status, workouts];
 }
-

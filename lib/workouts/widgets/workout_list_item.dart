@@ -11,7 +11,6 @@ class WorkoutListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
     return Material(
       child: Slidable(
         startActionPane: ActionPane(
@@ -19,7 +18,8 @@ class WorkoutListItem extends StatelessWidget {
           children: [
             SlidableAction(
               onPressed: (context) {
-                context.read<WorkoutsBloc>()
+                context
+                    .read<WorkoutsBloc>()
                     .add(WorkoutDeleteRequested(workout));
               },
               backgroundColor: const Color(0xFFFE4A49),
@@ -36,4 +36,3 @@ class WorkoutListItem extends StatelessWidget {
     );
   }
 }
-
