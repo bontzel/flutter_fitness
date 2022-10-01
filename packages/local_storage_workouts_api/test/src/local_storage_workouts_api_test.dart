@@ -10,6 +10,8 @@ void main() {
     final workout = Workout(name: 'testName');
 
     setUpAll(() async {
+      SharedPreferences.setMockInitialValues({});
+
       localStorageWorkoutsApi = LocalStorageWorkoutsApi(
         plugin: await SharedPreferences.getInstance(),
       );
