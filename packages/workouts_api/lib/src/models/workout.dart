@@ -27,11 +27,11 @@ class Workout extends Equatable {
   Workout({
     String? id,
     required this.name,
-  }) : assert(
-    id == null || id.isNotEmpty,
-  'id cannot be null and should be empty',
-  ),
-  id = id ?? const Uuid().v4();
+  })  : assert(
+          id == null || id.isNotEmpty,
+          'id cannot be null and should be empty',
+        ),
+        id = id ?? const Uuid().v4();
 
   /// The unique identifier of the workout.
   ///

@@ -19,21 +19,22 @@ class LocalStorageWorkoutsApi extends WorkoutsApi {
 
   final SharedPreferences _plugin;
 
-  final _todoStreamController = BehaviorSubject<List<Workout>>.seeded(const []);
+  final _workoutsStreamController =
+      BehaviorSubject<List<Workout>>.seeded(const []);
 
-  /// The key used for storing the todos locally.
+  /// The key used for storing the wokouts locally.
   ///
   /// This is only exposed for testing and shouldn't be used by consumers of
   /// this library.
   @visibleForTesting
-  static const kTodosCollectionKey = '__todos_collection_key__';
+  static const kWorkoutsCollectionKey = '__workouts_collection_key__';
 
   String? _getValue(String key) => _plugin.getString(key);
   Future<void> _setValue(String key, String value) =>
       _plugin.setString(key, value);
 
   void _init() {
-    final workoutsJson = _getValue(kTodosCollectionKey);
+    final workoutsJson = _getValue(kWorkoutsCollectionKey);
     if (workoutsJson != null) {
       final workouts =
           List<Map<String, dynamic>>.from(json.decode(workoutsJson) as List)
@@ -43,19 +44,19 @@ class LocalStorageWorkoutsApi extends WorkoutsApi {
                 ),
               )
               .toList();
-      _todoStreamController.add(workouts);
+      _workoutsStreamController.add(workouts);
     } else {
-      _todoStreamController.add(const []);
+      _workoutsStreamController.add(const []);
     }
   }
 
   @override
   Stream<List<Workout>> getWorkouts() =>
-      _todoStreamController.asBroadcastStream();
+      _workoutsStreamController.asBroadcastStream();
 
   @override
   Future<void> createWorkout(Workout workout) {
-    final workouts = [..._todoStreamController.value];
+    final workouts = [..._workoutsStreamController.value];
     final workoutIndex = workouts.indexWhere((t) => t.id == workout.id);
     if (workoutIndex >= 0) {
       workouts[workoutIndex] = workout;
@@ -63,20 +64,27 @@ class LocalStorageWorkoutsApi extends WorkoutsApi {
       workouts.add(workout);
     }
 
-    _todoStreamController.add(workouts);
-    return _setValue(kTodosCollectionKey, json.encode(workouts));
+    _workoutsStreamController.add(workouts);
+    return _setValue(kWorkoutsCollectionKey, json.encode(workouts));
   }
 
   @override
   Future<void> deleteWorkout(String id) async {
-    final todos = [..._todoStreamController.value];
-    final todoIndex = todos.indexWhere((t) => t.id == id);
-    if (todoIndex == -1) {
+    final workouts = [..._workoutsStreamController.value];
+    final workoutIndex = workouts.indexWhere((t) => t.id == id);
+    if (workoutIndex == -1) {
       throw WorkoutNotFoundException();
     } else {
-      todos.removeAt(todoIndex);
-      _todoStreamController.add(todos);
-      return _setValue(kTodosCollectionKey, json.encode(todos));
+      workouts.removeAt(workoutIndex);
+      _workoutsStreamController.add(workouts);
+      return _setValue(kWorkoutsCollectionKey, json.encode(workouts));
     }
+  }
+
+  /// Convenience method to reset storage
+  @visibleForTesting
+  Future<void> deleteAllWorkouts() async {
+    _workoutsStreamController.add([]);
+    return _setValue(kWorkoutsCollectionKey, json.encode([]));
   }
 }
