@@ -130,7 +130,7 @@ class _AppViewState extends State<AppView> {
                 _navigator.pushAndRemoveUntil<void>(
                   home.HomePage.route(
                     WorkoutsListPage.new,
-                    CreateWorkoutPage.route(),
+                    CreateWorkoutPage(),
                     getUndoDeleteListener,
                     getUserLogout(),
                   ),

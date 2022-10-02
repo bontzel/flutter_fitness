@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 
 class AddWorkoutButton extends StatelessWidget {
-  const AddWorkoutButton({super.key, required this.createWorkoutRoute});
-  final Route<void> createWorkoutRoute;
+  AddWorkoutButton({super.key, required this.createWorkout});
+  final Widget createWorkout;
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class AddWorkoutButton extends StatelessWidget {
       onPressed: () {
         Navigator.push(
           context,
-          createWorkoutRoute,
+          MaterialPageRoute(builder: (context) => createWorkout),
         );
       },
       child: const Icon(Icons.add),

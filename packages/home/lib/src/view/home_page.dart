@@ -8,26 +8,26 @@ class HomePage extends StatefulWidget {
   const HomePage({
     super.key,
     required this.workoutsListProvider,
-    required this.createWorkoutsRoute,
+    required this.createWorkout,
     required this.getUndoDeleteListener,
     required this.userLogout,
   });
   final Widget Function() workoutsListProvider;
-  final Route<void> createWorkoutsRoute;
+  final Widget createWorkout;
   final MultiBlocListener Function(Widget) getUndoDeleteListener;
   final List<Widget> userLogout;
 
   // ignore: strict_raw_type
   static Route route(
     Widget Function() workoutsListProvider,
-    Route<void> createWorkoutsRoute,
+    Widget createWorkout,
     MultiBlocListener Function(Widget) getUndoDeleteListener,
     List<Widget> userLogout,
   ) {
     return MaterialPageRoute<void>(
       builder: (_) => HomePage(
         workoutsListProvider: workoutsListProvider,
-        createWorkoutsRoute: createWorkoutsRoute,
+        createWorkout: createWorkout,
         getUndoDeleteListener: getUndoDeleteListener,
         userLogout: userLogout,
       ),
@@ -45,7 +45,7 @@ class HomePage extends StatefulWidget {
           userProfile(userLogout),
           workoutsListProvider(),
         ],
-        createWorkoutsRoute: createWorkoutsRoute,
+        createWorkout: createWorkout,
         getUndoDeleteListener: getUndoDeleteListener,
       );
 }
@@ -54,10 +54,10 @@ class _HomePageState extends State<HomePage> {
   _HomePageState({
     required this.getUndoDeleteListener,
     required this.tabsProvider,
-    required this.createWorkoutsRoute,
+    required this.createWorkout,
   });
   final List<Widget> tabsProvider;
-  final Route<void> createWorkoutsRoute;
+  final Widget createWorkout;
   final MultiBlocListener Function(Widget) getUndoDeleteListener;
 
   int _selectedIndex = 0;
@@ -96,7 +96,7 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: _selectedIndex == 1
           ? AddWorkoutButton(
-              createWorkoutRoute: createWorkoutsRoute,
+              createWorkout: createWorkout,
             )
           : null,
     );
