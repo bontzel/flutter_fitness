@@ -4,18 +4,14 @@ version: 0.1.0+1
 publish_to: none
 
 environment:
-  sdk: ">=2.18.0 <3.0.0"
-  flutter: 3.3.2
+  sdk: ">=2.17.0 <3.3.3"
 
 dependencies:
   equatable: ^2.0.3
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.0
-  workouts_api:
-    path: ../workouts_api
   
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -102,7 +102,7 @@ class _AppViewState extends State<AppView> {
       Builder(
         builder: (context) {
           final userId = context.select(
-            (AuthenticationBloc bloc) => bloc.getUserId(),
+            (AuthenticationBloc bloc) => bloc.state.user.id,
           );
           return Text('UserID: $userId');
         },
@@ -110,7 +110,9 @@ class _AppViewState extends State<AppView> {
       ElevatedButton(
         child: const Text('Logout'),
         onPressed: () {
-          context.read<AuthenticationBloc>().addAuthenticationLogoutRequested();
+          context
+              .read<AuthenticationBloc>()
+              .add(AuthenticationLogoutRequested());
         },
       ),
     ];

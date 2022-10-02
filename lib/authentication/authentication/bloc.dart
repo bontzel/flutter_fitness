@@ -3,14 +3,13 @@ import 'dart:async';
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:home/home.dart' as home;
 import 'package:user_repository/user_repository.dart';
 
 part 'event.dart';
 part 'state.dart';
 
-class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState>
-    implements home.AuthenticationBloc {
+class AuthenticationBloc
+    extends Bloc<AuthenticationEvent, AuthenticationState> {
   AuthenticationBloc({
     required AuthenticationRepository authenticationRepository,
     required UserRepository userRepository,
@@ -69,15 +68,5 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState>
     } catch (_) {
       return null;
     }
-  }
-
-  @override
-  void addAuthenticationLogoutRequested() {
-    add(AuthenticationLogoutRequested());
-  }
-
-  @override
-  String getUserId() {
-    return state.user.id;
   }
 }

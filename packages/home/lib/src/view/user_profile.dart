@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:home/src/authentication_bloc.dart';
 
 /// User profile widget to show user information
 class UserProfile extends StatelessWidget {
