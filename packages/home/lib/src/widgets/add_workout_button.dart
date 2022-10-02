@@ -1,8 +1,10 @@
+// ignore_for_file: public_member_api_docs
+
 import 'package:flutter/material.dart';
-import 'package:flutter_fitness/create_workout/create_workout.dart';
 
 class AddWorkoutButton extends StatelessWidget {
-  const AddWorkoutButton({super.key});
+  const AddWorkoutButton({super.key, required this.createWorkoutRoute});
+  final Route<void> createWorkoutRoute;
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +12,7 @@ class AddWorkoutButton extends StatelessWidget {
       onPressed: () {
         Navigator.push(
           context,
-          CreateWorkoutPage.route(),
+          createWorkoutRoute,
         );
       },
       child: const Icon(Icons.add),

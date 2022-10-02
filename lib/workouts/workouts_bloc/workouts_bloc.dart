@@ -18,9 +18,9 @@ class WorkoutsBloc extends Bloc<WorkoutsEvent, WorkoutsState> {
   final WorkoutsRepository workoutsRepository;
 
   Future<void> _onWorkoutsSubscriptionRequested(
-      WorkoutsSubscriptionRequested event,
-      Emitter<WorkoutsState> emit,
-      ) async {
+    WorkoutsSubscriptionRequested event,
+    Emitter<WorkoutsState> emit,
+  ) async {
     emit(state.copyWith(status: () => WorkoutsStatus.loading));
 
     await emit.forEach<List<Workout>>(
@@ -36,9 +36,9 @@ class WorkoutsBloc extends Bloc<WorkoutsEvent, WorkoutsState> {
   }
 
   Future<void> _onWorkoutDeleted(
-      WorkoutDeleteRequested event,
-      Emitter<WorkoutsState> emit,
-      ) async {
+    WorkoutDeleteRequested event,
+    Emitter<WorkoutsState> emit,
+  ) async {
     emit(state.copyWith(lastDeletedWorkout: () => event.workout));
     await workoutsRepository.deleteWorkout(event.workout.id);
   }
