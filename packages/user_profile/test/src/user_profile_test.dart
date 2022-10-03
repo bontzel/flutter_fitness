@@ -5,6 +5,9 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
-export 'home/home_cubit.dart';
-export 'view/view.dart';
-export 'widgets/widgets.dart';
+// ignore_for_file: prefer_const_constructors
+
+import 'package:flutter_test/flutter_test.dart';
+import 'package:user_profile/user_profile.dart';
+
+void main() {}

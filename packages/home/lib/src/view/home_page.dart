@@ -2,9 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../home.dart';
+import 'package:home/src/home.dart';
+import 'package:user_profile/user_profile.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({
     super.key,
     required this.workoutsListProvider,
@@ -17,15 +18,11 @@ class HomePage extends StatefulWidget {
   final MultiBlocListener Function(Widget) getUndoDeleteListener;
   final List<Widget> userLogout;
 
-  // ignore: strict_raw_type
-  static Route route(
-    Widget Function() workoutsListProvider,
-    Widget createWorkout,
-    MultiBlocListener Function(Widget) getUndoDeleteListener,
-    List<Widget> userLogout,
-  ) {
-    return MaterialPageRoute<void>(
-      builder: (_) => HomePage(
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => HomeCubit(),
+      child: HomeView(
         workoutsListProvider: workoutsListProvider,
         createWorkout: createWorkout,
         getUndoDeleteListener: getUndoDeleteListener,
@@ -33,78 +30,88 @@ class HomePage extends StatefulWidget {
       ),
     );
   }
-
-  Widget userProfile(List<Widget> userLogout) {
-    return UserProfile(userLogout: userLogout);
-  }
-
-  @override
-  // ignore: no_logic_in_create_state
-  State<HomePage> createState() => _HomePageState(
-        tabsProvider: [
-          userProfile(userLogout),
-          workoutsListProvider(),
-        ],
-        createWorkout: createWorkout,
-        getUndoDeleteListener: getUndoDeleteListener,
-      );
 }
 
-class _HomePageState extends State<HomePage> {
-  _HomePageState({
-    required this.getUndoDeleteListener,
-    required this.tabsProvider,
+class HomeView extends StatelessWidget {
+  const HomeView({
+    super.key,
+    required this.workoutsListProvider,
     required this.createWorkout,
+    required this.getUndoDeleteListener,
+    required this.userLogout,
   });
-  final List<Widget> tabsProvider;
+  final Widget Function() workoutsListProvider;
   final Widget createWorkout;
   final MultiBlocListener Function(Widget) getUndoDeleteListener;
+  final List<Widget> userLogout;
 
-  int _selectedIndex = 0;
-
-  static const List<Text> _titles = [
-    Text('User Panel'),
-    Text('Workouts'),
+  static List<String> titles = [
+    'User Profile',
+    'Workouts',
   ];
 
   @override
   Widget build(BuildContext context) {
+    final selectedTab = context.select((HomeCubit cubit) => cubit.state.tab);
+
     return Scaffold(
-      appBar: AppBar(title: _titles[_selectedIndex]),
-      body: getUndoDeleteListener(
-        Center(
-          child: tabsProvider[_selectedIndex],
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.settings,
-            ),
-            label: 'User Panel',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.list,
-            ),
-            label: 'Workouts',
-          ),
+      appBar: AppBar(title: Text(titles[selectedTab.index])),
+      body: IndexedStack(
+        index: selectedTab.index,
+        children: [
+          UserProfile(userLogout: userLogout),
+          workoutsListProvider(),
         ],
       ),
-      floatingActionButton: _selectedIndex == 1
+      floatingActionButton: selectedTab == HomeTab.workouts
           ? AddWorkoutButton(
               createWorkout: createWorkout,
             )
           : null,
+      bottomNavigationBar: BottomAppBar(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            _HomeTabButton(
+              groupValue: selectedTab,
+              value: HomeTab.userProfile,
+              icon: const Icon(
+                Icons.settings,
+              ),
+            ),
+            _HomeTabButton(
+              groupValue: selectedTab,
+              value: HomeTab.workouts,
+              icon: const Icon(
+                Icons.list,
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
+}
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+class _HomeTabButton extends StatelessWidget {
+  const _HomeTabButton({
+    required this.groupValue,
+    required this.value,
+    required this.icon,
+  });
+
+  final HomeTab groupValue;
+  final HomeTab value;
+  final Widget icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: () => context.read<HomeCubit>().setTab(value),
+      iconSize: 32,
+      color:
+          groupValue != value ? null : Theme.of(context).colorScheme.secondary,
+      icon: icon,
+    );
   }
 }

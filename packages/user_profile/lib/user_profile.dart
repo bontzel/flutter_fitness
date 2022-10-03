@@ -5,6 +5,7 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
-export 'home/home_cubit.dart';
-export 'view/view.dart';
-export 'widgets/widgets.dart';
+/// User profile module
+library user_profile;
+
+export 'src/user_profile.dart';

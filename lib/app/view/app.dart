@@ -128,12 +128,13 @@ class _AppViewState extends State<AppView> {
             switch (state.status) {
               case AuthenticationStatus.authenticated:
                 _navigator.pushAndRemoveUntil<void>(
-                  home.HomePage.route(
-                    WorkoutsListPage.new,
-                    CreateWorkoutPage(),
-                    getUndoDeleteListener,
-                    getUserLogout(),
-                  ),
+                  MaterialPageRoute(
+                      builder: (_) => home.HomePage(
+                            workoutsListProvider: WorkoutsListPage.new,
+                            createWorkout: CreateWorkoutPage(),
+                            getUndoDeleteListener: getUndoDeleteListener,
+                            userLogout: getUserLogout(),
+                          )),
                   (route) => false,
                 );
                 break;
