@@ -8,8 +8,15 @@ environment:
   flutter: 3.3.3
 
 dependencies:
+  authentication_repository:
+    path: ../authentication_repository
+  bloc: ^8.1.0
+  equatable: ^2.0.5
   flutter:
     sdk: flutter
+  flutter_bloc: ^8.1.1
+  user_repository:
+    path: ../user_repository
 
 dev_dependencies:
   flutter_test:

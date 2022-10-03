@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:rxdart/rxdart.dart';
+
 /// The possible authentication statuses
 enum AuthenticationStatus {
   /// Error or any other untreated authentication statuses
@@ -14,7 +16,7 @@ enum AuthenticationStatus {
 
 /// Repository exposing methods to the authentication service
 class AuthenticationRepository {
-  final _controller = StreamController<AuthenticationStatus>();
+  final _controller = BehaviorSubject<AuthenticationStatus>();
 
   /// A [Stream] to query the authentication status
   Stream<AuthenticationStatus> get status async* {

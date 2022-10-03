@@ -1,3 +1,5 @@
+// ignore_for_file: public_member_api_docs
+
 import 'dart:async';
 
 import 'package:authentication_repository/authentication_repository.dart';
@@ -17,6 +19,7 @@ class AuthenticationBloc
         _userRepository = userRepository,
         super(const AuthenticationState.unknown()) {
     on<AuthenticationStatusChanged>(_onAuthenticationStatusChanged);
+    on<AuthenticationLogoutRequested>(_onAuthenticationLogoutRequested);
     _authenticationStatusSubscription = _authenticationRepository.status.listen(
       (status) => add(AuthenticationStatusChanged(status)),
     );
@@ -50,6 +53,13 @@ class AuthenticationBloc
       case AuthenticationStatus.unknown:
         return emit(const AuthenticationState.unknown());
     }
+  }
+
+  void _onAuthenticationLogoutRequested(
+    AuthenticationLogoutRequested event,
+    Emitter<AuthenticationState> emit,
+  ) {
+    _authenticationRepository.logOut();
   }
 
   Future<User?> _tryGetUser() async {

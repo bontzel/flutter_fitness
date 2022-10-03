@@ -1,9 +1,11 @@
 // ignore_for_file: public_member_api_docs
 
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:home/src/home.dart';
 import 'package:user_profile/user_profile.dart';
+import 'package:user_repository/user_repository.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
@@ -11,12 +13,10 @@ class HomePage extends StatelessWidget {
     required this.workoutsListProvider,
     required this.createWorkout,
     required this.getUndoDeleteListener,
-    required this.userLogout,
   });
   final Widget Function() workoutsListProvider;
   final Widget createWorkout;
   final MultiBlocListener Function(Widget) getUndoDeleteListener;
-  final List<Widget> userLogout;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,6 @@ class HomePage extends StatelessWidget {
         workoutsListProvider: workoutsListProvider,
         createWorkout: createWorkout,
         getUndoDeleteListener: getUndoDeleteListener,
-        userLogout: userLogout,
       ),
     );
   }
@@ -38,12 +37,10 @@ class HomeView extends StatelessWidget {
     required this.workoutsListProvider,
     required this.createWorkout,
     required this.getUndoDeleteListener,
-    required this.userLogout,
   });
   final Widget Function() workoutsListProvider;
   final Widget createWorkout;
   final MultiBlocListener Function(Widget) getUndoDeleteListener;
-  final List<Widget> userLogout;
 
   static List<String> titles = [
     'User Profile',
@@ -59,7 +56,7 @@ class HomeView extends StatelessWidget {
       body: IndexedStack(
         index: selectedTab.index,
         children: [
-          UserProfile(userLogout: userLogout),
+          const UserProfile(),
           workoutsListProvider(),
         ],
       ),

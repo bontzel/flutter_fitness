@@ -29,6 +29,7 @@ class App extends StatelessWidget {
       providers: [
         RepositoryProvider.value(value: authenticationRepository),
         RepositoryProvider.value(value: workoutsRepository),
+        RepositoryProvider.value(value: userRepository),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -97,27 +98,6 @@ class _AppViewState extends State<AppView> {
     );
   }
 
-  List<Widget> getUserLogout() {
-    return <Widget>[
-      Builder(
-        builder: (context) {
-          final userId = context.select(
-            (AuthenticationBloc bloc) => bloc.state.user.id,
-          );
-          return Text('UserID: $userId');
-        },
-      ),
-      ElevatedButton(
-        child: const Text('Logout'),
-        onPressed: () {
-          context
-              .read<AuthenticationBloc>()
-              .add(AuthenticationLogoutRequested());
-        },
-      ),
-    ];
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -133,7 +113,6 @@ class _AppViewState extends State<AppView> {
                             workoutsListProvider: WorkoutsListPage.new,
                             createWorkout: CreateWorkoutPage(),
                             getUndoDeleteListener: getUndoDeleteListener,
-                            userLogout: getUserLogout(),
                           )),
                   (route) => false,
                 );
