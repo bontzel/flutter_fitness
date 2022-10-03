@@ -29,9 +29,9 @@ class WorkoutsState extends Equatable {
 
   @override
   String toString() {
-    return '''WorkoutsState { status: $status, workouts: ${workouts.length} }''';
+    return '''WorkoutsState { status: $status, workouts: ${workouts.length}, lastDeletedWorkout: $lastDeletedWorkout }''';
   }
 
   @override
-  List<Object> get props => [status, workouts];
+  List<Object?> get props => [status, workouts, lastDeletedWorkout];
 }
