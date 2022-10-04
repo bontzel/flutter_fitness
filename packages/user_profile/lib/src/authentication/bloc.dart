@@ -10,6 +10,10 @@ import 'package:user_repository/user_repository.dart';
 part 'event.dart';
 part 'state.dart';
 
+/// While this BLoC uses the same name as the one in the main app and has almost
+/// the same implementation,
+/// it is pretty clear that it could have more uses than the ones used solely
+/// for authentication (e.g. present more info on [User])
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   AuthenticationBloc({

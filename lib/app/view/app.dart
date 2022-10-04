@@ -2,12 +2,9 @@ import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_fitness/authentication/authentication.dart';
-import 'package:flutter_fitness/create_workout/view/view.dart';
-import 'package:flutter_fitness/login/login.dart';
 import 'package:flutter_fitness/splash/splash.dart';
-import 'package:flutter_fitness/workouts/view/view.dart';
-import 'package:flutter_fitness/workouts/workouts_bloc/workouts_bloc.dart';
 import 'package:home/home.dart' as home;
+import 'package:login/login.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:workouts_repository/workouts_repository.dart';
 
@@ -31,20 +28,11 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: workoutsRepository),
         RepositoryProvider.value(value: userRepository),
       ],
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider<AuthenticationBloc>(
-            create: (_) => AuthenticationBloc(
-              authenticationRepository: authenticationRepository,
-              userRepository: userRepository,
-            ),
-          ),
-          BlocProvider<WorkoutsBloc>(
-            create: (_) => WorkoutsBloc(
-              workoutsRepository: workoutsRepository,
-            )..add(const WorkoutsSubscriptionRequested()),
-          ),
-        ],
+      child: BlocProvider<AuthenticationBloc>(
+        create: (_) => AuthenticationBloc(
+          authenticationRepository: authenticationRepository,
+          userRepository: userRepository,
+        ),
         child: const AppView(),
       ),
     );
@@ -63,41 +51,6 @@ class _AppViewState extends State<AppView> {
 
   NavigatorState get _navigator => _navigatorKey.currentState!;
 
-  MultiBlocListener getUndoDeleteListener(Widget childWidget) {
-    return MultiBlocListener(
-      listeners: [
-        BlocListener<WorkoutsBloc, WorkoutsState>(
-          listenWhen: (previous, current) =>
-              previous.lastDeletedWorkout != current.lastDeletedWorkout &&
-              current.lastDeletedWorkout != null,
-          listener: (context, state) {
-            final deletedWorkout = state.lastDeletedWorkout!;
-            final messenger = ScaffoldMessenger.of(context);
-            messenger
-              ..hideCurrentSnackBar()
-              ..showSnackBar(
-                SnackBar(
-                  content: Text(
-                    '${deletedWorkout.name} has been deleted',
-                  ),
-                  action: SnackBarAction(
-                    label: 'Undo',
-                    onPressed: () {
-                      messenger.hideCurrentSnackBar();
-                      context
-                          .read<WorkoutsBloc>()
-                          .add(const WorkoutsUndoDeletionRequested());
-                    },
-                  ),
-                ),
-              );
-          },
-        ),
-      ],
-      child: childWidget,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -109,11 +62,8 @@ class _AppViewState extends State<AppView> {
               case AuthenticationStatus.authenticated:
                 _navigator.pushAndRemoveUntil<void>(
                   MaterialPageRoute(
-                      builder: (_) => home.HomePage(
-                            workoutsListProvider: WorkoutsListPage.new,
-                            createWorkout: CreateWorkoutPage(),
-                            getUndoDeleteListener: getUndoDeleteListener,
-                          )),
+                    builder: (_) => const home.HomePage(),
+                  ),
                   (route) => false,
                 );
                 break;

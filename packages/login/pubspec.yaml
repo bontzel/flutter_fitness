@@ -1,27 +1,22 @@
-name: home
-description: Home page module
+name: login
+description: Login module
 version: 0.1.0+1
 publish_to: none
 
 environment:
-  sdk: ">=2.17.0 <3.3.3"
+  sdk: ">=2.18.0 <3.0.0"
+  flutter: 3.3.3
 
 dependencies:
   authentication_repository:
     path: '../authentication_repository'
-  create_workout:
-    path: '../create_workout'
+  bloc: ^8.1.0
   equatable: ^2.0.5
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.1
-  user_profile:
-    path: '../user_profile'
-  user_repository:
-    path: '../user_repository'
-  workouts_list:
-    path: '../workouts_list'
-  
+  formz: ^0.4.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,0 +1,24 @@
+name: workouts_list
+description: Module used to display saved workouts
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
+dependencies:
+  bloc: ^8.1.0
+  equatable: ^2.0.5
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.1.1
+  flutter_slidable: ^2.0.0
+  workouts_api:
+    path: '../workouts_api'
+  workouts_repository:
+    path: '../workouts_repository'
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  very_good_analysis: ^3.0.1

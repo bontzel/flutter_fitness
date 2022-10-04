@@ -92,6 +92,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.6.1"
+  create_workout:
+    dependency: transitive
+    description:
+      path: "packages/create_workout"
+      relative: true
+    source: path
+    version: "0.1.0+1"
   crypto:
     dependency: transitive
     description:
@@ -259,6 +266,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
+  login:
+    dependency: "direct main"
+    description:
+      path: "packages/login"
+      relative: true
+    source: path
+    version: "0.1.0+1"
   matcher:
     dependency: transitive
     description:
@@ -632,6 +646,13 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/workouts_api"
+      relative: true
+    source: path
+    version: "1.0.0+1"
+  workouts_list:
+    dependency: transitive
+    description:
+      path: "packages/workouts_list"
       relative: true
     source: path
     version: "1.0.0+1"

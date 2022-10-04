@@ -25,6 +25,8 @@ dependencies:
   intl: ^0.17.0
   local_storage_workouts_api:
     path: packages/local_storage_workouts_api
+  login:
+    path: packages/login
   user_repository:
     path: packages/user_repository
   workouts_api:

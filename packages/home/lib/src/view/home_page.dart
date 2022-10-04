@@ -1,32 +1,22 @@
 // ignore_for_file: public_member_api_docs
 
-import 'package:authentication_repository/authentication_repository.dart';
+import 'package:create_workout/create_workout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:home/src/home.dart';
 import 'package:user_profile/user_profile.dart';
-import 'package:user_repository/user_repository.dart';
+import 'package:workouts_list/workouts_list.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
     super.key,
-    required this.workoutsListProvider,
-    required this.createWorkout,
-    required this.getUndoDeleteListener,
   });
-  final Widget Function() workoutsListProvider;
-  final Widget createWorkout;
-  final MultiBlocListener Function(Widget) getUndoDeleteListener;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => HomeCubit(),
-      child: HomeView(
-        workoutsListProvider: workoutsListProvider,
-        createWorkout: createWorkout,
-        getUndoDeleteListener: getUndoDeleteListener,
-      ),
+      child: const HomeView(),
     );
   }
 }
@@ -34,13 +24,7 @@ class HomePage extends StatelessWidget {
 class HomeView extends StatelessWidget {
   const HomeView({
     super.key,
-    required this.workoutsListProvider,
-    required this.createWorkout,
-    required this.getUndoDeleteListener,
   });
-  final Widget Function() workoutsListProvider;
-  final Widget createWorkout;
-  final MultiBlocListener Function(Widget) getUndoDeleteListener;
 
   static List<String> titles = [
     'User Profile',
@@ -55,14 +39,14 @@ class HomeView extends StatelessWidget {
       appBar: AppBar(title: Text(titles[selectedTab.index])),
       body: IndexedStack(
         index: selectedTab.index,
-        children: [
-          const UserProfile(),
-          workoutsListProvider(),
+        children: const [
+          UserProfile(),
+          WorkoutsListPage(),
         ],
       ),
       floatingActionButton: selectedTab == HomeTab.workouts
           ? AddWorkoutButton(
-              createWorkout: createWorkout,
+              createWorkout: const CreateWorkoutPage(),
             )
           : null,
       bottomNavigationBar: BottomAppBar(
