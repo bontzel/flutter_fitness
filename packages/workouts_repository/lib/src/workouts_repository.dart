@@ -25,6 +25,6 @@ class WorkoutsRepository {
   /// Create a [Workout].
   ///
   /// If a [Workout] with the same id already exists, it will be replaced.
-  Future<void> createWorkout(Workout workout) => _workoutsApi
-                                                    .createWorkout(workout);
+  Future<void> createWorkout(Workout workout) =>
+      _workoutsApi.createWorkout(workout);
 }

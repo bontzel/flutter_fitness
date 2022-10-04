@@ -2,10 +2,9 @@ import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_fitness/authentication/authentication.dart';
-import 'package:flutter_fitness/home/home.dart';
-import 'package:flutter_fitness/login/login.dart';
 import 'package:flutter_fitness/splash/splash.dart';
-import 'package:flutter_fitness/workouts/workouts_bloc/workouts_bloc.dart';
+import 'package:home/home.dart' as home;
+import 'package:login/login.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:workouts_repository/workouts_repository.dart';
 
@@ -24,26 +23,18 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
-        providers: [
-          RepositoryProvider.value(value: authenticationRepository),
-          RepositoryProvider.value(value: workoutsRepository),
-        ],
-        child: MultiBlocProvider(
-          providers: [
-            BlocProvider<AuthenticationBloc>(
-              create: (_) => AuthenticationBloc(
-                authenticationRepository: authenticationRepository,
-                userRepository: userRepository,
-              ),
-            ),
-            BlocProvider<WorkoutsBloc>(
-              create: (_) => WorkoutsBloc(
-                  workoutsRepository: workoutsRepository,
-              )..add(const WorkoutsSubscriptionRequested()),
-            ),
-          ],
-          child: const AppView(),
+      providers: [
+        RepositoryProvider.value(value: authenticationRepository),
+        RepositoryProvider.value(value: workoutsRepository),
+        RepositoryProvider.value(value: userRepository),
+      ],
+      child: BlocProvider<AuthenticationBloc>(
+        create: (_) => AuthenticationBloc(
+          authenticationRepository: authenticationRepository,
+          userRepository: userRepository,
         ),
+        child: const AppView(),
+      ),
     );
   }
 }
@@ -70,14 +61,16 @@ class _AppViewState extends State<AppView> {
             switch (state.status) {
               case AuthenticationStatus.authenticated:
                 _navigator.pushAndRemoveUntil<void>(
-                  HomePage.route(),
-                      (route) => false,
+                  MaterialPageRoute(
+                    builder: (_) => const home.HomePage(),
+                  ),
+                  (route) => false,
                 );
                 break;
               case AuthenticationStatus.unauthenticated:
                 _navigator.pushAndRemoveUntil<void>(
                   LoginPage.route(),
-                      (route) => false,
+                  (route) => false,
                 );
                 break;
               case AuthenticationStatus.unknown:

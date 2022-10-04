@@ -92,6 +92,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.6.1"
+  create_workout:
+    dependency: transitive
+    description:
+      path: "packages/create_workout"
+      relative: true
+    source: path
+    version: "0.1.0+1"
   crypto:
     dependency: transitive
     description:
@@ -195,7 +202,14 @@ packages:
       name: hexcolor
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.7"
+    version: "3.0.1"
+  home:
+    dependency: "direct main"
+    description:
+      path: "packages/home"
+      relative: true
+    source: path
+    version: "0.1.0+1"
   http_multi_server:
     dependency: transitive
     description:
@@ -252,6 +266,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
+  login:
+    dependency: "direct main"
+    description:
+      path: "packages/login"
+      relative: true
+    source: path
+    version: "0.1.0+1"
   matcher:
     dependency: transitive
     description:
@@ -551,6 +572,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.1"
+  user_profile:
+    dependency: transitive
+    description:
+      path: "packages/user_profile"
+      relative: true
+    source: path
+    version: "0.1.0+1"
   user_repository:
     dependency: "direct main"
     description:
@@ -621,6 +649,13 @@ packages:
       relative: true
     source: path
     version: "1.0.0+1"
+  workouts_list:
+    dependency: transitive
+    description:
+      path: "packages/workouts_list"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   workouts_repository:
     dependency: "direct main"
     description:
@@ -643,5 +678,5 @@ packages:
     source: hosted
     version: "3.1.1"
 sdks:
-  dart: ">=2.18.0 <3.0.0"
-  flutter: ">=3.0.5"
+  dart: ">=2.18.1 <3.0.0"
+  flutter: ">=3.3.3"
